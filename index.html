@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GigaFix | Servicio técnico de PC y notebooks a domicilio</title>
 <meta name="description" content="Reparación, mantenimiento e instalación de PC y notebooks. Servicio técnico a domicilio. Consultá por WhatsApp.">
-<link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script>
 tailwind.config = {
   theme: { extend: {
@@ -123,6 +123,7 @@ tailwind.config = {
     </div>
   </div>
 </section>
+
 <!-- CONTACTO -->
 <section id="contacto" class="pads text-paper scroll-mt-4">
   <div class="max-w-6xl mx-auto px-5 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 items-start">
@@ -130,7 +131,7 @@ tailwind.config = {
       <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight">Escribinos y lo resolvemos.</h2>
       <p class="mt-4 text-lg text-paper/85 max-w-prose">Completá los datos y se abre WhatsApp con tu consulta lista para enviar.</p>
       <p class="mt-8 text-sm text-paper/70">WhatsApp</p>
-      <a data-wa="Hola, quiero hacer una consulta." class="font-display font-extrabold text-4xl hover:text-copper-light transition-colors" href="#">351 674-2982</a>
+      <a data-wa="Hola, quiero hacer una consulta." class="font-display font-extrabold text-4xl hover:text-copper-light transition-colors" href="#">351 674-2972</a>
     </div>
 
     <form id="form" class="bg-paper text-ink rounded-lg p-5 sm:p-6 grid gap-4 shadow-2xl">
@@ -171,10 +172,11 @@ tailwind.config = {
   <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 0 1 12 4Z"/></svg>
   <span class="hidden sm:inline">WhatsApp</span>
 </a>
+
 <script>
   // ====== EDITAR ACÁ ======
-  const WA = '5493516742982'; // 54 (Argentina) + 9 (celular) + 351 6742982
-  const wa = (msg) => `https://wa.me{WA}?text=${encodeURIComponent(msg)}`;
+  const WA = '5493516742972'; // 54 (Argentina) + 9 (celular) + 351 6742972
+  const wa = (msg) => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
 
   // Todos los enlaces con data-wa abren WhatsApp con ese mensaje
   document.querySelectorAll('[data-wa]').forEach(a => {
