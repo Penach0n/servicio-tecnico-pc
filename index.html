@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es-AR" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GigaFix | Servicio técnico de PC y notebooks a domicilio</title>
+<meta name="description" content="Reparación, mantenimiento e instalación de PC y notebooks. Servicio técnico a domicilio. Consultá por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      pcb: { DEFAULT: '#0E4D41', dark: '#0A3A31' },
+      copper: { DEFAULT: '#C9822B', light: '#E8A957', deep: '#8F5410' },
+      paper: '#F2F4EE', ink: '#14211D', mist: '#D9E0D6'
+    },
+    fontFamily: {
+      display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+      sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif']
+    }
+  } }
+};
+</script>
+<style>
+  /* Puntos de soldadura: único recurso decorativo del hero */
+  .pads { background-color: #0E4D41; background-image: radial-gradient(circle at 1px 1px, rgba(232,169,87,.25) 1.5px, transparent 0); background-size: 28px 28px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #E8A957; outline-offset: 2px; }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .plus { transform: rotate(45deg); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased">
+
+<!-- HERO -->
+<section class="pads text-paper">
+  <header class="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between gap-4">
+    <a href="#" class="flex items-center" aria-label="GigaFix, inicio">
+      <img src="logo.png" alt="GigaFix - PC Repair, Cyber Tuning" class="max-h-[50px] w-auto">
+    </a>
+    <nav class="hidden md:flex gap-7 text-sm font-medium text-paper/80" aria-label="Principal">
+      <a class="hover:text-white" href="#servicios">Servicios</a>
+      <a class="hover:text-white" href="#domicilio">A domicilio</a>
+      <a class="hover:text-white" href="#proceso">Cómo trabajamos</a>
+      <a class="hover:text-white" href="#preguntas">Preguntas</a>
+    </nav>
+    <a data-wa="Hola, quiero hacer una consulta." class="rounded-md bg-copper-light px-4 py-2 text-sm font-semibold text-ink hover:bg-white transition-colors" href="#">WhatsApp</a>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-5 pt-8 pb-16 sm:pb-20 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
+    <div>
+      <h1 class="font-display font-extrabold text-4xl sm:text-6xl leading-[1.03] tracking-tight">Tu PC o notebook, funcionando como el primer día.</h1>
+      <p class="mt-5 text-lg text-paper/85 max-w-prose">Reparación, mantenimiento e instalación para equipos de casa y de oficina. Hacemos el service técnico a domicilio: no tenés que mover nada.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a data-wa="Hola, quiero pedir una visita a domicilio." class="rounded-md bg-copper-light px-6 py-3 font-semibold text-ink hover:bg-white transition-colors" href="#">Pedir visita a domicilio</a>
+        <a class="rounded-md border border-paper/40 px-6 py-3 font-semibold hover:bg-paper/10 transition-colors" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+
+    <!-- Diagnóstico interactivo -->
+    <div class="bg-paper text-ink rounded-lg p-5 sm:p-6 shadow-2xl">
+      <h2 class="font-display font-extrabold text-2xl">¿Qué le pasa a tu equipo?</h2>
+      <p class="mt-1 text-sm text-ink/70">Elegí el síntoma y te mostramos las causas más comunes.</p>
+      <div id="sintomas" class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Síntomas"></div>
+      <div id="resultado" class="mt-5 border-t border-mist pt-4 min-h-[10rem]" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<!-- SERVICIOS -->
+<section id="servicios" class="max-w-6xl mx-auto px-5 py-16 sm:py-20 scroll-mt-4">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <div>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight">Servicios</h2>
+      <p class="mt-2 text-ink/70 max-w-prose">Tocá “Pedir” en el que necesites y se abre WhatsApp con el mensaje listo.</p>
+    </div>
+    <div id="filtros" class="flex flex-wrap gap-2" role="group" aria-label="Filtrar servicios"></div>
+  </div>
+  <ul id="lista" class="mt-8 divide-y divide-mist border-y border-mist"></ul>
+</section>
+
+<!-- DOMICILIO -->
+<section id="domicilio" class="bg-white scroll-mt-4">
+  <div class="max-w-6xl mx-auto px-5 py-16 sm:py-20 grid md:grid-cols-2 gap-10 items-center">
+    <div class="border-l-8 border-copper pl-6">
+      <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight">Service técnico a domicilio</h2>
+      <p class="mt-4 text-lg text-ink/80 max-w-prose">Vamos a tu casa, a tu oficina o al local donde esté el equipo.</p>
+      <a data-wa="Hola, quiero coordinar una visita a domicilio." class="mt-6 inline-block rounded-md bg-pcb px-6 py-3 font-semibold text-paper hover:bg-pcb-dark transition-colors" href="#">Coordinar visita</a>
+    </div>
+    <ul class="space-y-5 text-lg">
+      <li class="flex gap-3"><span class="mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full bg-copper" aria-hidden="true"></span>Revisamos el equipo en el lugar, con tus cosas a mano.</li>
+      <li class="flex gap-3"><span class="mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full bg-copper" aria-hidden="true"></span>Muchas tareas, como limpieza o instalación de programas, se resuelven en la misma visita.</li>
+      <li class="flex gap-3"><span class="mt-2.5 h-2.5 w-2.5 shrink-0 rounded-full bg-copper" aria-hidden="true"></span>Antes de empezar te explicamos qué tiene el equipo y cuánto cuesta.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" class="max-w-6xl mx-auto px-5 py-16 sm:py-20 scroll-mt-4">
+  <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight">Cómo trabajamos</h2>
+  <ol class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <li class="border-t-4 border-pcb pt-4"><span class="font-display font-extrabold text-3xl text-copper-deep">1</span><h3 class="mt-1 font-semibold text-lg">Contanos el problema</h3><p class="mt-1 text-ink/75">Escribinos por WhatsApp con el modelo del equipo y lo que le pasa.</p></li>
+    <li class="border-t-4 border-pcb pt-4"><span class="font-display font-extrabold text-3xl text-copper-deep">2</span><h3 class="mt-1 font-semibold text-lg">Diagnóstico</h3><p class="mt-1 text-ink/75">Revisamos el equipo y encontramos la causa real de la falla.</p></li>
+    <li class="border-t-4 border-pcb pt-4"><span class="font-display font-extrabold text-3xl text-copper-deep">3</span><h3 class="mt-1 font-semibold text-lg">Presupuesto</h3><p class="mt-1 text-ink/75">Te pasamos el costo y el tiempo estimado. Si no te convence, no seguimos.</p></li>
+    <li class="border-t-4 border-pcb pt-4"><span class="font-display font-extrabold text-3xl text-copper-deep">4</span><h3 class="mt-1 font-semibold text-lg">Reparación y prueba</h3><p class="mt-1 text-ink/75">Arreglamos, probamos todo con vos presente y te explicamos cómo cuidarlo.</p></li>
+  </ol>
+</section>
+
+<!-- PREGUNTAS -->
+<section id="preguntas" class="bg-white scroll-mt-4">
+  <div class="max-w-3xl mx-auto px-5 py-16 sm:py-20">
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight">Preguntas frecuentes</h2>
+    <div class="mt-8 divide-y divide-mist border-y border-mist">
+      <details class="group py-4"><summary class="flex cursor-pointer items-center justify-between gap-4 font-semibold text-lg">¿Hacen service a domicilio?<span class="plus text-2xl text-copper-deep transition-transform" aria-hidden="true">+</span></summary><p class="mt-3 text-ink/75">Sí. Vamos a tu casa u oficina. Escribinos por WhatsApp, contanos tu zona y coordinamos día y horario.</p></details>
+      <details class="group py-4"><summary class="flex cursor-pointer items-center justify-between gap-4 font-semibold text-lg">¿Cuánto cuesta una reparación?<span class="plus text-2xl text-copper-deep transition-transform" aria-hidden="true">+</span></summary><p class="mt-3 text-ink/75">Depende del equipo y de la falla. Con una descripción del problema por WhatsApp te damos un presupuesto antes de empezar.</p></details>
+      <details class="group py-4"><summary class="flex cursor-pointer items-center justify-between gap-4 font-semibold text-lg">¿Pierdo mis archivos si reinstalan Windows?<span class="plus text-2xl text-copper-deep transition-transform" aria-hidden="true">+</span></summary><p class="mt-3 text-ink/75">Antes de instalar hacemos una copia de tus archivos importantes, siempre que el disco permita leerlos.</p></details>
+      <details class="group py-4"><summary class="flex cursor-pointer items-center justify-between gap-4 font-semibold text-lg">¿Cada cuánto conviene hacer mantenimiento?<span class="plus text-2xl text-copper-deep transition-transform" aria-hidden="true">+</span></summary><p class="mt-3 text-ink/75">Una vez al año es una buena regla. Si el equipo está en un lugar con mucho polvo o lo usás todo el día, conviene cada seis meses.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="pads text-paper scroll-mt-4">
+  <div class="max-w-6xl mx-auto px-5 py-16 sm:py-20 grid lg:grid-cols-2 gap-12 items-start">
+    <div>
+      <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight">Escribinos y lo resolvemos.</h2>
+      <p class="mt-4 text-lg text-paper/85 max-w-prose">Completá los datos y se abre WhatsApp con tu consulta lista para enviar.</p>
+      <p class="mt-8 text-sm text-paper/70">WhatsApp</p>
+      <a data-wa="Hola, quiero hacer una consulta." class="font-display font-extrabold text-4xl hover:text-copper-light transition-colors" href="#">351 674-2972</a>
+    </div>
+
+    <form id="form" class="bg-paper text-ink rounded-lg p-5 sm:p-6 grid gap-4 shadow-2xl">
+      <label class="grid gap-1 text-sm font-medium">Tu nombre
+        <input id="f-nombre" type="text" required autocomplete="name" class="rounded-md border border-ink/25 bg-white px-3 py-2.5 text-base font-normal">
+      </label>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="grid gap-1 text-sm font-medium">Equipo
+          <select id="f-equipo" class="rounded-md border border-ink/25 bg-white px-3 py-2.5 text-base font-normal">
+            <option>Notebook</option><option>PC de escritorio</option><option>All in one</option><option>Otro</option>
+          </select>
+        </label>
+        <label class="grid gap-1 text-sm font-medium">Servicio
+          <select id="f-servicio" class="rounded-md border border-ink/25 bg-white px-3 py-2.5 text-base font-normal"></select>
+        </label>
+      </div>
+      <label class="grid gap-1 text-sm font-medium">Qué le pasa
+        <textarea id="f-detalle" rows="3" class="rounded-md border border-ink/25 bg-white px-3 py-2.5 text-base font-normal" placeholder="Modelo, síntomas, desde cuándo..."></textarea>
+      </label>
+      <label class="flex items-center gap-3 text-sm font-medium">
+        <input id="f-domicilio" type="checkbox" checked class="h-5 w-5 accent-[#0E4D41]">Necesito servicio a domicilio
+      </label>
+      <button type="submit" class="rounded-md bg-pcb px-6 py-3 font-semibold text-paper hover:bg-pcb-dark transition-colors">Enviar por WhatsApp</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="bg-pcb-dark text-paper/70 text-sm">
+  <div class="max-w-6xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-2">
+    <p>© <span id="anio"></span> Giga<span class="text-white">Fix</span>. Servicio técnico de PC y notebooks.</p>
+    <p>Atención a domicilio</p>
+  </div>
+</footer>
+
+<!-- Botón flotante de WhatsApp -->
+<a data-wa="Hola, quiero hacer una consulta." href="#" aria-label="Escribir por WhatsApp" class="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 font-semibold text-ink shadow-lg hover:brightness-95 transition">
+  <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.4.6.6-2.3-.2-.3A8 8 0 0 1 12 4Z"/></svg>
+  <span class="hidden sm:inline">WhatsApp</span>
+</a>
+
+<script>
+  // ====== EDITAR ACÁ ======
+  const WA = '5493516742972'; // 54 (Argentina) + 9 (celular) + 351 6742972
+  const wa = (msg) => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+
+  // Todos los enlaces con data-wa abren WhatsApp con ese mensaje
+  document.querySelectorAll('[data-wa]').forEach(a => {
+    a.href = wa(a.dataset.wa); a.target = '_blank'; a.rel = 'noopener';
+  });
+  document.getElementById('anio').textContent = new Date().getFullYear();
+
+  const chip = 'rounded-md border border-pcb/30 px-3 py-2 text-sm font-medium transition-colors hover:bg-pcb/10 aria-pressed:border-pcb aria-pressed:bg-pcb aria-pressed:text-paper';
+
+  // ====== Diagnóstico por síntoma ======
+  const SINTOMAS = [
+    { k: 'No enciende', c: 'Fuente o cargador dañado, memoria RAM mal asentada o falla en la placa.', s: 'Diagnóstico de equipo que no enciende' },
+    { k: 'Va muy lenta', c: 'Disco rígido gastado, poca memoria, virus o demasiados programas al inicio.', s: 'Optimización o cambio de disco a SSD' },
+    { k: 'Se calienta o hace ruido', c: 'Polvo acumulado, pasta térmica seca o cooler con falla.', s: 'Limpieza y mantenimiento' },
+    { k: 'Pantalla rota o sin imagen', c: 'Panel dañado, cable flex suelto o falla en la placa de video.', s: 'Cambio de pantalla' },
+    { k: 'Windows falla o no inicia', c: 'Archivos del sistema dañados, actualización fallida o disco con errores.', s: 'Instalación de Windows' },
+    { k: 'Virus o ventanas raras', c: 'Malware, extensiones del navegador o programas no deseados.', s: 'Eliminación de virus y malware' },
+    { k: 'No carga la batería', c: 'Batería agotada, cargador defectuoso o ficha de carga floja.', s: 'Cambio de batería o cargador' },
+    { k: 'Sin Wi-Fi o internet', c: 'Placa de red con falla, drivers faltantes o router mal configurado.', s: 'Configuración de Wi-Fi y router' }
+  ];
+  const $s = document.getElementById('sintomas'), $r = document.getElementById('resultado');
+
+  function vacio() {
+    $r.innerHTML = `<p class="text-ink/70">Elegí un síntoma para ver las causas más comunes y qué servicio lo resuelve.</p>
+      <a href="${wa('Hola, mi equipo tiene un problema que no está en la lista.')}" target="_blank" rel="noopener" class="mt-3 inline-block text-sm font-semibold text-copper-deep underline underline-offset-4">¿No está tu problema? Contanos</a>`;
+  }
+  SINTOMAS.forEach((x, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = x.k; b.className = chip; b.setAttribute('aria-pressed', 'false');
+    b.onclick = () => {
+      $s.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      $r.innerHTML = `<p class="text-sm font-semibold text-copper-deep">Causas frecuentes</p>
+        <p class="mt-1">${x.c}</p>
+        <p class="mt-3 text-sm text-ink/70">Servicio recomendado</p>
+        <p class="font-semibold">${x.s}</p>
+        <a href="${wa(`Hola, mi equipo: ${x.k.toLowerCase()}. Quisiera consultar por: ${x.s}.`)}" target="_blank" rel="noopener" class="mt-4 inline-block rounded-md bg-pcb px-5 py-2.5 text-sm font-semibold text-paper hover:bg-pcb-dark transition-colors">Consultar por WhatsApp</a>`;
+    };
+    $s.appendChild(b);
+  });
+  vacio();
+
+  // ====== Servicios ======
+  const SERVICIOS = [
+    { t: 'Limpieza y mantenimiento', d: 'Limpieza interna, cambio de pasta térmica y revisión de coolers para bajar temperaturas.', c: 'Hardware' },
+    { t: 'Cambio de disco a SSD', d: 'Reemplazo del disco rígido por SSD, con clonado para conservar tu sistema y tus archivos.', c: 'Hardware' },
+    { t: 'Ampliación de memoria RAM', d: 'Instalamos RAM compatible con tu equipo para trabajar con varias tareas abiertas.', c: 'Hardware' },
+    { t: 'Pantalla, teclado y batería', d: 'Reemplazo de piezas rotas o gastadas en notebooks, además de cargadores y fichas de carga.', c: 'Hardware' },
+    { t: 'Equipo que no enciende', d: 'Diagnóstico de fuente, memoria y placa para encontrar la falla.', c: 'Hardware' },
+    { t: 'Armado de PC a medida', d: 'Elegimos los componentes según tu uso (oficina, diseño o juegos) y la dejamos lista.', c: 'Hardware' },
+    { t: 'Instalación de Windows', d: 'Instalación limpia con drivers, actualizaciones y programas básicos.', c: 'Software' },
+    { t: 'Eliminación de virus y malware', d: 'Quitamos virus, publicidad no deseada y programas sospechosos. Dejamos protección configurada.', c: 'Software' },
+    { t: 'Optimización de equipos lentos', d: 'Revisamos el inicio, los programas y el disco para recuperar velocidad.', c: 'Software' },
+    { t: 'Instalación de programas y Office', d: 'Office, navegadores y programas de trabajo, con las licencias que ya tengas.', c: 'Software' },
+    { t: 'Recuperación de datos y backup', d: 'Rescate de archivos de discos o pendrives con problemas y copias de respaldo.', c: 'Datos y redes' },
+    { t: 'Wi-Fi, router e impresoras', d: 'Configuración de red, repetidores e impresoras en tu casa u oficina.', c: 'Datos y redes' }
+  ];
+  const CATS = ['Todos', 'Hardware', 'Software', 'Datos y redes'];
+  const $l = document.getElementById('lista'), $f = document.getElementById('filtros'), $sv = document.getElementById('f-servicio');
+
+  function pintar(cat) {
+    $l.innerHTML = SERVICIOS.filter(x => cat === 'Todos' || x.c === cat).map(x => `
+      <li class="grid gap-3 py-5 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div><h3 class="font-display font-extrabold text-xl">${x.t}</h3><p class="mt-1 text-ink/75 max-w-prose">${x.d}</p></div>
+        <div class="flex items-center gap-4"><span class="text-sm text-ink/60">${x.c}</span>
+          <a href="${wa(`Hola, quiero consultar por: ${x.t}.`)}" target="_blank" rel="noopener" class="rounded-md border border-pcb px-4 py-2 text-sm font-semibold text-pcb hover:bg-pcb hover:text-paper transition-colors">Pedir</a></div>
+      </li>`).join('');
+  }
+  CATS.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = c; b.className = chip; b.setAttribute('aria-pressed', i === 0);
+    b.onclick = () => { $f.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); pintar(c); };
+    $f.appendChild(b);
+  });
+  pintar('Todos');
+
+  $sv.innerHTML = '<option>No sé qué tiene</option>' + SERVICIOS.map(x => `<option>${x.t}</option>`).join('');
+
+  // ====== Formulario → WhatsApp ======
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = (id) => document.getElementById(id).value.trim();
+    const msg = `Hola, soy ${v('f-nombre')}. Equipo: ${v('f-equipo')}. Servicio: ${v('f-servicio')}. ` +
+      (document.getElementById('f-domicilio').checked ? 'Necesito servicio a domicilio. ' : '') +
+      (v('f-detalle') ? `Detalle: ${v('f-detalle')}` : '');
+    window.open(wa(msg), '_blank', 'noopener');
+  });
+</script>
+</body>
+</html>
